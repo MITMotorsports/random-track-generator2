@@ -301,9 +301,14 @@ class TrackGenerator:
         """
         abs_path_dir = os.path.realpath(os.path.dirname(__file__))
         track_file_dir = abs_path_dir + self._output_location
+
+        print(f'Saving track to {track_file_dir}')
         
         if(self._sim_type == SimType.FSSIM):
-            track_file_name = track_file_dir + 'random_track.yaml'
+            track_file_name = track_file_dir + '/random_track.yaml'
+
+            print("Saving " + track_file_name)
+
 
             with open(track_file_name, 'w') as outfile:
                 data = dict()
@@ -316,7 +321,7 @@ class TrackGenerator:
                 yaml.dump(data, outfile)
             
         elif(self._sim_type == SimType.FSDS):
-            track_file_name = track_file_dir + 'random_track.csv'
+            track_file_name = track_file_dir + '/random_track.csv'
             
             print("Saving " + track_file_name)
             
