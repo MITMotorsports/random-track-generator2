@@ -92,7 +92,7 @@ class TrackGenerator:
         vor.filtered_regions = np.array(vor.regions, dtype=object)[vor.point_region[:vor.npoints//5]]
         return vor
 
-    def create_track(self):
+    def create_track(self, save_file_name='random_track'):
         """
         Creates a track from the vertices of a Voronoi diagram.
         1.  Create bounded Voronoi diagram.
@@ -233,7 +233,7 @@ class TrackGenerator:
         # Create track file
         if self._visualise_voronoi: self.visualise_voronoi(vor, sorted_vertices, random_point_indices, input_points, x, y)
         if self._plot_track: self.plot_track(cones_left, cones_right)
-        if self._create_output_file: self.output_yaml(cones_left.tolist(), cones_right.tolist())
+        if self._create_output_file: self.output_yaml(cones_left.tolist(), cones_right.tolist(), save_file_name)
 
     def visualise_voronoi(self, vor, sorted_vertices, random_point_indices, input_points, x, y):
         """
@@ -291,7 +291,7 @@ class TrackGenerator:
         plt.grid()
         plt.show()
         
-    def output_yaml(self, cones_left, cones_right):
+    def output_yaml(self, cones_left, cones_right, save_file_name):
         """
         Writes the track data to a yaml file.
 
@@ -301,14 +301,11 @@ class TrackGenerator:
         """
         abs_path_dir = os.path.realpath(os.path.dirname(__file__))
         track_file_dir = abs_path_dir + self._output_location
-
-        print(f'Saving track to {track_file_dir}')
         
         if(self._sim_type == SimType.FSSIM):
-            track_file_name = track_file_dir + '/random_track.yaml'
-
-            print("Saving " + track_file_name)
-
+            track_file_name = track_file_dir + '/' +save_file_name +'.yaml'
+            
+            print("Saving to: " + track_file_name)
 
             with open(track_file_name, 'w') as outfile:
                 data = dict()
@@ -321,9 +318,9 @@ class TrackGenerator:
                 yaml.dump(data, outfile)
             
         elif(self._sim_type == SimType.FSDS):
-            track_file_name = track_file_dir + '/random_track.csv'
+            track_file_name = track_file_dir + '/' +save_file_name +'.csv'
             
-            print("Saving " + track_file_name)
+            print("Saving to: " + track_file_name)
             
             with open(track_file_name, 'w') as outfile:
                 for cone in cones_left:
@@ -336,9 +333,12 @@ class TrackGenerator:
                 outfile.write("big_orange,4.7,-2.2,0,0.01,0.01,0\n")
                 outfile.write("big_orange,7.3,2.2,0,0.01,0.01,0\n")
                 outfile.write("big_orange,7.3,-2.2,0,0.01,0.01,0\n")
+        
         elif(self._sim_type == SimType.GPX):
-            track_file_name = track_file_dir + 'random_track.gpx'
+            track_file_name = track_file_dir + '/' + save_file_name +'.gpx'
             gpx = gpxpy.gpx.GPX()
+
+            print("Saving to: " + track_file_name)
 
             # Create first track in our GPX:
             gpx_track = gpxpy.gpx.GPXTrack()
