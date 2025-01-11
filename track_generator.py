@@ -20,10 +20,18 @@ class TrackGenerator:
                  min_bound: float, 
                  max_bound: float, 
                  mode: Mode, 
+                 
                  plot_track: bool, 
                  visualise_voronoi: bool,
                  create_output_file: bool, 
                  output_location: str,
+                 
+                 track_width : 3.0,
+                 cone_spacing : 5.0,
+                 length_start_area : 6.0,
+                 curvature_threshold : (1.0 / 3.750),
+                 straight_threshold : (1.0 / 100.0),
+                 
                  z_offset: float = 0,
                  lat_offset: float = 0,
                  lon_offset: float = 0,
@@ -39,11 +47,11 @@ class TrackGenerator:
         self._sim_type = sim_type
 
         # Track parameters
-        self._track_width = 3.                                                  # [m]
-        self._cone_spacing = 5.                                                 # [m]
-        self._length_start_area = 6.                                            # [m]
-        self._curvature_threshold = 1. / 3.75                                   # [m^-1]
-        self._straight_threshold = 1. / 100.                                    # [m^-1]
+        self._track_width = track_width                                                 # [m]
+        self._cone_spacing = cone_spacing                                               # [m]
+        self._length_start_area = length_start_area                                           # [m]
+        self._curvature_threshold = curvature_threshold                                # [m^-1]
+        self._straight_threshold = straight_threshold                                    # [m^-1]
 
         # Output options
         self._plot_track = plot_track

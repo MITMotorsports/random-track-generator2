@@ -44,6 +44,9 @@ The tracks are generated using a bounded Voronoi diagram, which is created from 
   <img src="img/voronoi.png" width="50%" /> 
 </p>
 
+## Usage
+The script `make_track_dataset.py` generates a number of random tracks with parameters determined by a yaml config file (see `default_config.yaml`) for an example.
+
 ## Requirements
 
 * python >= 3.7.8
