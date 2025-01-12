@@ -1,0 +1,26 @@
+NUM_TRACKS: 3
+
+# Input parameters
+n_points: 70            # [-, int]
+n_regions: 40           # [-, int]
+min_bound: 10.0         # [m, float]
+max_bound: 200.0         # [m, float]
+mode: RANDOM              # [Mode.EXPAND, Mode.EXTEND, Mode.RANDOM]
+
+# Track parameters
+track_width : 3.0                                                  # [m, float]
+cone_spacing : 5.0                                                 # [m, float]
+length_start_area : 6.0                                           # [m, float]
+curvature_threshold : (1.0 / 3.75)                                   # [m^-1, float]
+straight_threshold : (1.0 / 100.0)                                    # [m^-1, float]              
+
+
+# Output options
+plot_track: True               # [bool]
+visualise_voronoi: True        # [bool]  
+create_output_file: True       # [bool]
+output_location: '/sample_tracks'           # [str] this should point to a FOLDER
+z_offset: 0.0           # [?, float]
+lat_offset: 0.0          # [?, float]
+lon_offset: 0.0          # [?, float]
+sim_type: 'FSSIM'       # [SimType.FSSIM, SimType.FSDS, SimType.GPX]
