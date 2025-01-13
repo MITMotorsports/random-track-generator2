@@ -1,4 +1,4 @@
-from track_generator import TrackGenerator
+from .track_generator import TrackGenerator
 from utils import Mode, SimType
 from datetime import datetime
 import yaml
