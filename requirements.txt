@@ -1,6 +1,14 @@
-gpxpy==1.5.0
-matplotlib==3.1.2
-numpy==1.17.4
-PyYAML==6.0
-scipy==1.8.1
-shapely==2.0.1
+# gpxpy==1.5.0
+# matplotlib>=3.1.2 # OG ==3.1.2
+# numpy==1.17.4
+# PyYAML>=6.0 # OG ==6.0
+# scipy # OG ==1.8.1
+# shapely==2.0.1
+
+# gave up on resolving versioning so punting this (potential problem) for later
+gpxpy
+matplotlib
+numpy
+PyYAML
+scipy 
+shapely

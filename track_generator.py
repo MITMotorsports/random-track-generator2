@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal, spatial, interpolate
 from shapely.geometry.polygon import Point, LineString, Polygon
-from utils import *
+from .utils import *
 import math
 import gpxpy
 import gpxpy.gpx
@@ -114,6 +114,9 @@ class TrackGenerator:
         8.  Find long enough straight section to place start line and start position.
         9.  Translate and rotate track to origin.
         10. Create track yaml file.
+        
+        Returns:
+            (str) abs path to `save_file_name`
         """
         # Create bounded Voronoi diagram
         input_points = np.random.uniform(self._min_bound, self._max_bound, (self._n_points, 2))
@@ -241,7 +244,7 @@ class TrackGenerator:
         # Create track file
         if self._visualise_voronoi: self.visualise_voronoi(vor, sorted_vertices, random_point_indices, input_points, x, y)
         if self._plot_track: self.plot_track(cones_left, cones_right)
-        if self._create_output_file: self.output_yaml(cones_left.tolist(), cones_right.tolist(), save_file_name)
+        if self._create_output_file: return self.output_yaml(cones_left.tolist(), cones_right.tolist(), save_file_name)
 
     def visualise_voronoi(self, vor, sorted_vertices, random_point_indices, input_points, x, y):
         """
@@ -305,7 +308,10 @@ class TrackGenerator:
 
         Args:
             cones_left (list): Nx2 list of left cone coordinates.
-            cones_right (list): Nx2 list of right cone coordinates.
+            cones_right (list): Nx2 list of right cone coordinates.\
+        
+        Returns:
+            out_path_abs (str) : abs path of the output file `save_file_name`
         """
         abs_path_dir = os.path.realpath(os.path.dirname(__file__))
         track_file_dir = abs_path_dir + self._output_location
@@ -365,3 +371,5 @@ class TrackGenerator:
             
             with open(track_file_name, 'w') as outfile:
                 outfile.writelines(gpx.to_xml())
+        
+        return track_file_name

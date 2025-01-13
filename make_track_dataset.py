@@ -1,7 +1,8 @@
 from .track_generator import TrackGenerator
-from utils import Mode, SimType
+from .utils import Mode, SimType
 from datetime import datetime
 import yaml
+import os
 
 def make_track_dataset(path_to_config : 'default_config.yaml'):
     '''
@@ -10,7 +11,7 @@ def make_track_dataset(path_to_config : 'default_config.yaml'):
         like the number of tracks to generate, track parameters, output options, etc.
     
     Returns:
-        None
+        (str) abs path to folder where FSSIM yaml cone/track descriptions were saved
     '''
     with open(path_to_config, 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
@@ -60,9 +61,12 @@ def make_track_dataset(path_to_config : 'default_config.yaml'):
     
     for i in range(NUM_TRACKS):
         out_file_name = f'{i}_{str(sim_type)[str(sim_type).index(".") + 1 : ]}'
-        track_gen.create_track(out_file_name)
+        saved_at = track_gen.create_track(out_file_name)
+        print('saved_at : ' + saved_at)
     
-    print(f'Created {NUM_TRACKS} tracks in folder {output_folder}')
+    print(f'Created {NUM_TRACKS} tracks in folder {os.path.dirname(os.path.abspath(saved_at))}')
+    
+    return os.path.dirname(saved_at) # TODO 1/13 placeholder
     
 
 if __name__ == '__main__':
